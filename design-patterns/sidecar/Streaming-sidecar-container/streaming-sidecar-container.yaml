@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapi
+spec:
+  containers:
+  - name: api
+    image: flask_api_logging
+    imagePullPolicy: Never
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+  - name: logger
+    image: busybox
+    args: [/bin/sh, -c, 'tail -n+1 -f /var/log/flask.log']
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+  volumes:
+  - name: varlog
+    emptyDir: {}

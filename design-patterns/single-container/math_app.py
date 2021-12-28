@@ -11,4 +11,3 @@ def home():
 @api.route("/power/<int:number>")
 def power(number):
     return str(number**2)
-
